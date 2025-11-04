@@ -43,6 +43,7 @@ def get_model(args, config):
 
 
 def get_config(args):
+    tokenizer = AutoTokenizer.from_pretrained("VietAI/vit5-base")
     MODEL_CONFIG = {                # T5 small setup
     "vocab_size": tokenizer.vocab_size,
     "d_model": 512,
