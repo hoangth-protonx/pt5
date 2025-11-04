@@ -1,0 +1,10 @@
+data
+env.yaml
+logs
+scripts
+.neptune
+__pycache__
+*.pyc
+.vscode
+.env 
+*.json
