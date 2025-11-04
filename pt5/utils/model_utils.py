@@ -9,7 +9,7 @@ from transformers import (
     AutoConfig,
     T5Config
 )
-from clean_text_utils import clean_text
+from .clean_text_utils import clean_text
 
 
 from .copied_utils import (
