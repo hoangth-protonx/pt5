@@ -357,9 +357,13 @@ class AdamWScale(Optimizer):
 
 def tokenize_function(examples, tokenizer, in_length):
 
-    
+    cleaned_texts = []
+    for text in examples["text"]:
+        cleaned_text = clean_text(text)
+        cleaned_texts.append(cleaned_text)
+
     tokenizer_out = tokenizer(
-        text=examples["text"],
+        text=cleaned_texts,
         return_attention_mask=False,
     )
 

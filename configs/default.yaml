@@ -46,7 +46,7 @@ eval:
   steps: 500
 
 checkpoint:
-  every_steps: 100000 # Save checkpoint once in the end
+  every_steps: 1000 # Save checkpoint once in the end
 
 logging:
   neptune: false

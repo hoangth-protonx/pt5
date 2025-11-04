@@ -9,6 +9,8 @@ from transformers import (
     AutoConfig,
     T5Config
 )
+from clean_text_utils import clean_text
+
 
 from .copied_utils import (
     compute_input_and_target_lengths,
