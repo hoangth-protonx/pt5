@@ -42,7 +42,7 @@ def clean_text(s: str) -> str:
     s = s.replace("\r", " ").replace("\n", " ").replace("﻿", "")
     s = unicodedata.normalize("NFKC", s)  # "F U L L W I D T H" to "FULLWIDTH"
     s = _whitespace_re.sub(" ", s) # "This  is  a   test." to "This is a test."
-    s = _duplicate_symbols_re.sub(r'\1', s)  # "Helloooo!!!" to "Hello!"
+    s = _duplicate_symbols_re.sub(r'\1', s)  # "Hello!!!!!!!!!!" to "Hello!"
     s = re.sub(r'([?!.,;:])(?=\w)', r'\1',s)  # "2018?Nhổ" to "2018? Nhổ"
 
     # Remove Chinese characters
