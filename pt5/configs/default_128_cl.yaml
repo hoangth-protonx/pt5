@@ -44,6 +44,7 @@ optim:
 eval:
   every_steps: 5000 # Eval once in the end
   steps: 500
+  corrected_step: 10000
 
 checkpoint:
   every_steps: 10000 # Save checkpoint once in the end
