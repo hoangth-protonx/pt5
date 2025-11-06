@@ -18,7 +18,7 @@ from .utils import (
 )
 
 
-@hydra.main(config_path="configs", config_name="default_optimized", version_base='1.1')
+@hydra.main(config_path="configs", config_name="default_128_cl", version_base='1.1')
 def main(args):
     accelerator = Accelerator(
         cpu=args.device == "cpu",

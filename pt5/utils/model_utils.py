@@ -68,38 +68,16 @@ def get_tokenizer(args):
 
 def load_dataset_splits(args):
     if args.mode == 'pt':
-        train_dataset = datasets.load_dataset(
-            'Symato/c4_vi-filtered_200GB',
-            streaming=True,
-            split='train'
-        )
+        dataset = datasets.load_dataset("protonx-models/common_mix_law_400k")
 
-        train_dataset = train_dataset.remove_columns(
-            ['timestamp', 'url']
-        )
-
-        # val_dataset = datasets.load_dataset(
-        #     'allenai/c4',
-        #     'vi',
-        #     split='validation',
-        #     streaming=True)
-        val_dataset = datasets.load_dataset(
-            'Symato/c4_vi-filtered_200GB',
-            streaming=True,
-            split='train')
-
-        val_dataset = val_dataset.remove_columns(
-            ['timestamp', 'url']
-        )
+        train_dataset = dataset['train']
+        val_dataset = dataset['test']
 
         dataset_splits = {
             'train': train_dataset,
             'test': val_dataset,
         }
 
-        # assert (
-        #     dataset['train'].n_shards == 1024
-        # ), "We want to have many shards for efficient processing with num_workes in PyTorch dataloader"
     elif args.mode == 'ft':
         dataset_splits = datasets.load_dataset(
             args.data.exec_file_path,
@@ -185,47 +163,6 @@ def get_data_collator(tokenizer, config, args):
         raise NotImplementedError
 
     return data_collator
-
-
-# def get_dataloaders(tokenizer, config, args):
-#     dataset_splits = load_dataset_splits(args)
-#     dataset = process_dataset(dataset_splits=dataset_splits, args=args, tokenizer=tokenizer)
-#     data_collator = get_data_collator(tokenizer=tokenizer, config=config,
-#                                       args=args)
-
-#     is_iterable = isinstance(dataset['train'], IterableDataset)
-
-#     dataloaders = {}
-
-#     for split in ['train', 'test']:
-#         batch_size = args.optim.batch_size // args.optim.grad_acc
-
-#         shuffle = False
-
-
-#         dataloaders[split] = DataLoader(
-#             dataset[split],
-#             shuffle=shuffle,
-#             collate_fn=data_collator,
-#             batch_size=batch_size,
-#             num_workers=1,
-#             pin_memory=True,
-#             drop_last=False,
-#         )
-
-#     # Add & Check args about data loaders
-#     # with open_dict(args):
-#     #     if not is_iterable:
-#     #         args.data.train_batches = len(dataloaders['train'])
-#     #         args.data.test_batches = len(dataloaders['test'])
-
-#     #     if args.optim.epochs > 0:
-#     #         assert not is_iterable
-#     #         args.optim.total_steps = (len(dataloaders['train']) // args.optim.grad_acc) * args.optim.epochs 
-
-#     #     args.eval.corrected_steps = args.eval.steps
-
-#     return dataloaders['train'], dataloaders['test']
 
 from torch.utils.data import DataLoader
 
