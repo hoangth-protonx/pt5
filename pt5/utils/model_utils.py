@@ -68,7 +68,7 @@ def get_tokenizer(args):
 
 def load_dataset_splits(args):
     if args.mode == 'pt':
-        dataset = datasets.load_dataset("protonx-models/common_mix_law_400k")
+        dataset = datasets.load_dataset("protonx-models/common_mix_law_400k", streaming=True)
 
         train_dataset = dataset['train']
         val_dataset = dataset['test']
